@@ -6,13 +6,17 @@ import Homepage from "./Pages/Homepage";
 import Informatives from "./Pages/Informatives";
 import Research from "./Pages/Research";
 import Settings from "./Pages/Settings";
+import { Typography } from "@mui/material";
 
 function App() {
 
   return (
     <div className="App">
       <Router>
-        <div>
+        <div style={{width: "20%"}}>
+          <Typography variant="h2">
+            COMETVISOR
+          </Typography>
           <nav>
             <ul>
               <li>
