@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Divider, Fade, Typography, Avatar } from "@mui/material";
+import { Divider, Typography, Avatar } from "@mui/material";
 import { Box } from "@mui/system";
 
 const indices = [
@@ -31,7 +31,6 @@ var month = monthNames[today.getMonth()];
 var year = today.getFullYear();
 
 const ProfileBar = () => {
-    const [index, setIndex] = useState(indices[0]);
     const [seconds, setSeconds] = useState(0);
 
     useEffect(() => {

@@ -1,5 +1,5 @@
 import "./index.css";
-import { Box, Drawer, Typography, List, ListItem, ListItemButton, createTheme, ThemeProvider, ListItemIcon, Divider } from "@mui/material";
+import { Drawer, Typography, List, ListItem, ListItemButton, createTheme, ThemeProvider, ListItemIcon, Divider } from "@mui/material";
 import { pink } from "@mui/material/colors";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Route, Switch, Link } from "react-router-dom";
@@ -9,7 +9,7 @@ import Homepage from "./Homepage";
 import Informatives from "./Informatives";
 import Research from "./Research";
 import Settings from "./Settings";
-import ProfileBar from "./profileBar";
+import ProfileBar from "./Components/profileBar";
 
 const theme = createTheme({
   components: {
@@ -33,7 +33,7 @@ const theme = createTheme({
   },
 });
 
-export default () => {
+export default() => {
     return (
       <div>
         <ThemeProvider theme={theme}>
