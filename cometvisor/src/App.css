@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  height: 100vh;
+  height: 100%;
   background: radial-gradient(39.2% 55.77% at 88.02% 3.08%, rgba(86, 159, 225, 0.2) 0%, rgba(241, 241, 243, 0.2) 100%), radial-gradient(52.81% 71.83% at 40.69% 111.87%, #BAD1D1 0%, #F1F2F3 100%);
 }
 
