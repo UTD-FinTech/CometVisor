@@ -9,6 +9,7 @@ import Homepage from "./Homepage";
 import Informatives from "./Informatives";
 import Research from "./Research";
 import Settings from "./Settings";
+import Login from "./Login";
 import ProfileBar from "./Components/profileBar";
 
 const theme = createTheme({
@@ -162,7 +163,11 @@ export default() => {
               }}
             >
               <div className="button">
-                <Typography className="btnText" sx={{ color: pink[500] }}>
+                <Typography 
+                className="btnText" 
+                component={Link}
+                to="/login"
+                sx={{ color: pink[500], textDecoration: 'none' }}>
                   Sign out
                 </Typography>
                 <div className="btnTwo">
@@ -183,8 +188,9 @@ export default() => {
             <Route path="/settings" component={Settings} />
             <Route path="/research" component={Research} />
             <Route path="/informatives" component={Informatives} />
+            <Route path="/login" component={Login} />
           </Switch>
         </main>
       </div>
     );
-}
+  }
