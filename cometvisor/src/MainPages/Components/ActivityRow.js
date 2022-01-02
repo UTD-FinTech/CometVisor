@@ -25,7 +25,7 @@ const ActivityRow = (props) => {
           </IconButton>
           <TableCell align="right">{row.datetime}</TableCell>
           <TableCell align="right">{row.amount}</TableCell>
-          { row.buyOrSell == "Buy"
+          { row.buyOrSell === "Buy"
             ? <TableCell align="right" style={{color: teal[500]}}>{row.buyOrSell}</TableCell>
             : <TableCell align="right" style={{color: pink[500]}}>{row.buyOrSell}</TableCell>
           }

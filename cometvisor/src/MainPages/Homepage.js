@@ -2,13 +2,11 @@ import { useState } from "react";
 import "./Homepage.css";
 import { Box } from "@mui/system";
 import { teal, pink } from "@mui/material/colors";
-import { Button, Typography, ButtonGroup, createTheme, ThemeProvider, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Collapse } from "@mui/material";
+import { Button, Typography, ButtonGroup, createTheme, ThemeProvider, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { ResponsiveLine } from "@nivo/line";
 import ActivityRow from "./Components/ActivityRow";
-import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import HomeNewsRow from "./Components/HomeNewsRow";
 
 const theme = createTheme({

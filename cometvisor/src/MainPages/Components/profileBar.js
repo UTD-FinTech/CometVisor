@@ -96,7 +96,7 @@ const ProfileBar = () => {
           <Avatar sx={{ width: "3vw", height: "3vw", bgcolor: "salmon" }}>SR</Avatar>
           <Box sx={{display: "flex", flexDirection: "column", marginLeft: "3%", alignItems: "start", height: "6vh", justifyContent: "center"}}>
             <Typography variant="caption" style={{marginBottom: -8, color: "grey"}}>Welcome back</Typography>
-            <Typography variant="h6">Sayyant</Typography>    
+            <Typography variant="h6">Sean</Typography>    
           </Box>
         </Box>
       </div>
