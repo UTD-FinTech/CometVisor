@@ -1,41 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped
-with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Comet Visor
 
-## Getting Started
+Production: https://cometvisor.vercel.app/
 
-First, run the development server:
+## Developer Setup
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+1. Download the .env.local file from FinTech UTD Slack
+2. Place it in the root of the directory (i.e. same level as this README)
+3. Run `npm install`
+4. Run `next` to start
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Notes
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Structure
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed
-on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited
-in `pages/api/hello.js`.
+Pages that are standalone should be placed in `pages/`. Currently we only have the login page (`index.js`) and main dashboard (`dashboard.js`) with various tabs. Tab contents are stored in `components/`. API routes should be placed in `pages/api/`, there are some example code in there that are not relevant to Comet Visor.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated
-as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+We're currently using TailwindCSS for styling and Prettier for code formatting.
 
-## Learn More
+### Tasks
 
-To learn more about Next.js, take a look at the following resources:
+Features:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Work on dashboard components (home, informatives, etc)
+2. Work on API routes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions
-are welcome!
+Chores:
 
-## Deploy on Vercel
+1. Create FinTechUTD Vercel account for deployment
+2. Use FinTechUTD Gmail account for Firebase auth
+3. Setup Firebase Cloud Firestore connection
+4. Setup colors/colorscheme in tailwind config
+5. Prettier config
 
-The easiest way to deploy your Next.js app is to use
-the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-from the creators of Next.js.
+### Workflow
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Create a new branch `git checkout -b feature/home-page-portfolio`
+2. Work on feature on localhost, use `next` for starting debug server since it reloads on save
+3. Commit often `git commit -m "home page portfolio template complete"`
+4. Push to remote: `git push --set-upstream origin feature/home-page-portfolio`
+5. Check preview deployment on Vercel (TODO)
+6. Create pull request on GitHub
+7. Complete code review process
+8. Merge and check production deployment on Vercel at the production URL above
