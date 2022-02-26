@@ -7,7 +7,8 @@ Production: https://cometvisor.vercel.app/
 1. Download the .env.local file from FinTech UTD Slack
 2. Place it in the root of the directory (i.e. same level as this README)
 3. Run `npm install`
-4. Run `next` to start
+4. Run `npm run dev` to start
+5. After pushing a change, you can run `https://pull.git.ci/process/sunnyguan/CometVisor` and wait a few minutes for it to deploy to Vercel
 
 ## Notes
 
