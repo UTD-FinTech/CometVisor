@@ -9,7 +9,7 @@ import styles from "./login.module.css";
 //import logo from "../public/utdfintechlogo1.png";
 //import loginBgnd from "../public/logingraphicblue1.png"
 import Image from "next/image"
-import { GlassCard } from "./GlassCard";
+import { GlassCard } from "../components/GlassCard";
 
 export const getServerSideProps = async (ctx) => {
     try {
