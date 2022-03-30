@@ -6,8 +6,8 @@ import { Box, TextField, Drawer, Button, CssBaseline, Link, Paper, Grid, Typogra
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as React from 'react';
 import styles from "./login.module.css";
-//import logo from "../public/utdfintechlogo1.png";
-//import loginBgnd from "../public/logingraphicblue1.png"
+// import logo from "../public/utdfintechlogo1.png";
+// import loginBgnd from "../public/logingraphicblue1.png"
 import Image from "next/image"
 import { GlassCard } from "../components/GlassCard";
 
@@ -57,7 +57,11 @@ const Login = (props) => {
                                 flexDirection: "row",
                             }}
                         >
-                            <img className={styles.photo} alt="logo" />
+                            <Image className={styles.photo} alt="logo"
+                                   src="/utdfintechlogo1.png"
+                                   height={100}
+                                   width={100}
+                            />
                             <label className={styles.logoText}>
                                 Comet
                                 <br />
