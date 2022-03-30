@@ -1,0 +1,39 @@
+#menuItem:hover{
+  background-color: "transparent";
+  background: linear-gradient(277.48deg, #00827F -4.46%, #2596FF 125.88%);
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 500;
+  width : 20%;
+  height : 100;
+  transition : .2s;
+  text-align : center;
+  cursor : pointer;
+}
+.btnTwo {
+  width : 10%;
+  height : 100;
+  margin-left : -150px;
+  transition : .3s;
+  opacity: 0;
+}
+.btnText {
+  color : white;
+  transition : .3s;
+}
+.btnText2 {
+  margin-right : 100px;
+  color : #FFF;
+}
+.button:hover .btnTwo{ /*When hovering over .button change .btnTwo*/
+  margin-left: -110px;
+  opacity: 1;
+}
+.button:hover{ /*When hovering over .button change .btnText*/
+  margin-left : 30px;
+}

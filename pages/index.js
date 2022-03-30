@@ -1,8 +1,15 @@
 import firebase from '../lib/firebase';
 import nookies from "nookies";
 import {auth} from "../lib/firebaseAdmin";
-import {useRouter} from 'next/router'
-
+import {useRouter} from 'next/router';
+import { Box, TextField, Drawer, Button, CssBaseline, Link, Paper, Grid, Typography } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from 'react';
+import styles from "./login.module.css";
+// import logo from "../public/utdfintechlogo1.png";
+// import loginBgnd from "../public/logingraphicblue1.png"
+import Image from "next/image"
+import { GlassCard } from "../components/GlassCard";
 
 export const getServerSideProps = async (ctx) => {
     try {
@@ -21,39 +28,118 @@ export const getServerSideProps = async (ctx) => {
     }
 }
 
-export default function Home() {
+const theme = createTheme();
 
-    // const auth = useAuth();
+const Login = (props) => {
     const router = useRouter();
 
     return (
-        <div class="bg-green-100 h-screen w-screen" style={{
-            backgroundImage: "url(" + "https://www.siliconvalley.com/wp-content/uploads/2018/05/sjm-l-jobstheater-0910-31.jpg" + ")",
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat'
-        }}>
-            <div class="p-4 backdrop-blur-sm w-1/3 mr-0 ml-auto h-full flex border-l-4 border-green-500 align-middle" style={{
-                backdropFilter: "blur(24px)"
-            }}>
-                <div class="m-auto flex flex-col">
-                    <div class="text-center font-bold text-3xl text-green-300 mb-8">
-                        Comet Visor
-                    </div>
-                    <button className="button px-8 py-4 font-light rounded-2xl bg-green-300 font-bold hover:bg-green-400 shadow-md border-green-500 border-4 focus:outline-none hover:text-white;" onClick={() => {
-                        var provider = new firebase.auth.GoogleAuthProvider();
-                        firebase.auth()
-                            .signInWithPopup(provider)
-                            .then((result) => {
-                                console.log(result.user);
-                                router.push("/dashboard")
-                            }).catch((error) => {
-                            console.error(error);
-                        });
-                    }}>Login with Google
-                    </button>
-                </div>
-            </div>
-        </div>
+        <ThemeProvider theme={theme}>
+            <Drawer
+                variant="permanent"
+                anchor="left"
+            >
+                <Grid container component="main" sx={{ height: '100vh' }}>
+                    <Grid item
+                        xs={false}
+                        sm={4}
+                        md={7}
+                        sx={{
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                        }}
+                    >
+                        <Grid item
+                            style={{
+                                width: "100vw",
+                                height: "13vh",
+                                display: "flex",
+                                flexDirection: "row",
+                            }}
+                        >
+                            <Image className={styles.photo} alt="logo"
+                                   src="/utdfintechlogo1.png"
+                                   height={100}
+                                   width={100}
+                            />
+                            <label className={styles.logoText}>
+                                Comet
+                                <br />
+                                Visor
+                            </label>
+                        </Grid>
+                        <img className={styles.welcomePhoto} alt="Bgnd" />
+                    </Grid>
+                    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square >
+                        <Box className={styles.infoCard}> 
+                            <Typography variant="h5" className={styles.loginHeader}>
+                                Welcome Back,
+                            </Typography>
+                            <Typography className={styles.lowerLoginHeader}>
+                                Sign in
+                            </Typography>
+                            <Box component="form" noValidate sx={{ mt: 1 }}>
+                                <TextField
+                                    className={styles.textField}
+                                    margin="normal"
+                                    required
+                                    id="email"
+                                    label="EMAIL ADDRESS"
+                                    name="email"
+                                    autoComplete="email"
+                                    autoFocus
+                                />
+                                <br />
+                                <TextField
+                                    className={styles.textField}
+                                    margin="normal"
+                                    required
+                                    name="password"
+                                    label="PASSWORD"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                />
+                                <br />
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    className={styles.loginButton}
+                                    sx={{ mt: 3, mb: 2 }}
+                                    onClick={() => {
+                                        var provider = new firebase.auth.GoogleAuthProvider();
+                                        firebase.auth()
+                                            .signInWithPopup(provider)
+                                            .then((result) => {
+                                                console.log(result.user);
+                                                router.push("/dashboard")
+                                            }).catch((error) => {
+                                            console.error(error);
+                                        });}}
+                                >
+                                    Log In
+                                </Button>
+
+                                <Grid item className={styles.noAcc}>
+                                    <label> Don't have an account? </label>
+                                    <Link href="#">
+                                        {"Sign Up"}
+                                    </Link>
+                                </Grid>
+                                <Grid item className={styles.noAcc}>
+                                    <Grid item xs>
+                                        <Link href="#">
+                                            Forgot your password?
+                                        </Link>
+                                    </Grid>
+                                </Grid>
+
+                            </Box>
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Drawer>
+        </ThemeProvider>
     );
 }
+export default Login;

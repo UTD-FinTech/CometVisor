@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import nookies from "nookies";
 import {auth} from "../lib/firebaseAdmin";
-import useSWR from 'swr';
 import {useAuth} from '../lib/use-auth';
 import {useRouter} from 'next/router';
 import Home from "../components/home";
@@ -11,6 +10,42 @@ import InvestmentResearch from "../components/investmentResearch";
 import Developers from "../components/developers";
 import Settings from "../components/settings";
 import Header from "../components/header";
+import {
+    Drawer,
+    Typography,
+    List,
+    ListItem,
+    ListItemButton,
+    createTheme,
+    ThemeProvider,
+    ListItemIcon,
+    Divider,
+} from '@mui/material';
+import { pink } from '@mui/material/colors';
+import LogoutIcon from '@mui/icons-material/Logout';
+import styles from "./dashboard.module.css";
+
+const theme = createTheme({
+    components: {
+        MuiListItemButton: {
+            styleOverrides: {
+                root: {
+                    borderRadius: 30,
+                    paddingTop: 3,
+                    paddingBottom: 3,
+                },
+            },
+            defaultProps: {
+                disablepadding: "true",
+            },
+        },
+        MuiTypography: {
+            defaultProps: {
+                variant: 'h6',
+            },
+        },
+    },
+});
 
 export const getServerSideProps = async (ctx) => {
     try {
@@ -49,7 +84,7 @@ const AuthenticatedPage = (props) => {
             case 'Home': return <Home />;
             case 'Accounts': return <Accounts />;
             case 'Informatives': return <Informatives />;
-            case 'Investment & Research': return <InvestmentResearch />;
+            case 'Investments & Research': return <InvestmentResearch />;
             case 'Developers': return <Developers />;
             case 'Settings': return <Settings />;
         }
@@ -70,13 +105,13 @@ const AuthenticatedPage = (props) => {
         )
     }
 
-    return (
+    /*return (
         <div className="flex h-screen w-screen">
             <div className="flex flex-col w-1/4 bg-gray-200 p-4 align-middle">
                 <div className="mx-auto">
-                    <div className="font-bold text-2xl mb-8">Comet Visor</div>
+                    <div>Comet Visor</div>
                 </div>
-                <div className="p-2">
+                <div>
                     <Tab name="Home" />
                     <Tab name="Accounts" />
                     <Tab name="Informatives" />
@@ -89,10 +124,199 @@ const AuthenticatedPage = (props) => {
                 }} className="mb-4 mt-auto button px-4 py-2 font-light rounded-2xl bg-red-300 font-bold hover:bg-red-400 shadow-md border-red-500 border-4 focus:outline-none hover:text-white;">Sign out
                 </button>
             </div>
-            <div className="w-full">
+            <div >
                 <Header username={auth.user ? auth.user.displayName : "User"}/>
                 {switchPage()}
             </div>
+        </div>
+    );*/
+
+    return (
+        <div>
+            <ThemeProvider theme={theme}>
+                <Drawer
+                    variant="permanent"
+                    anchor="left"
+                    PaperProps={{
+                        style: {
+                            backgroundColor: 'transparent',
+                            boxShadow: 'none',
+                            borderColor: 'transparent',
+                        },
+                    }}
+                >
+                    <div
+                        style={{
+                            height: '90vh',
+                            width: '22vw',
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <List style={{ marginLeft: '5%', marginRight: '5%' }}>
+                            <ListItem
+                                id={styles.menuItem}
+                                onClick={(e) => {
+                                    setCurrentPage('Home');
+                                }}
+                                sx={{
+                                    '&:hover': {
+                                        '& .sectionLabel': { color: 'white' },
+                                    },
+                                }}
+                            >
+                                <ListItemButton className="sectionButton">
+                                    <Typography
+                                        className="sectionLabel"
+                                        sx={{ color: 'black' }}
+                                    >
+                                        Home
+                                    </Typography>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem
+                                id={styles.menuItem}
+                                onClick={(e) => {
+                                    setCurrentPage('Accounts');
+                                }}
+                                sx={{
+                                    '&:hover': {
+                                        '& .sectionLabel': { color: 'white' },
+                                    },
+                                }}
+                            >
+                                <ListItemButton className="sectionButton">
+                                    <Typography
+                                        className="sectionLabel"
+                                        sx={{ color: 'black' }}
+                                    >
+                                        Accounts
+                                    </Typography>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem
+                                id={styles.menuItem}
+                                onClick={(e) => {
+                                    setCurrentPage('Developers');
+                                }}
+                                sx={{
+                                    '&:hover': {
+                                        '& .sectionLabel': { color: 'white' },
+                                    },
+                                }}
+                            >
+                                <ListItemButton className="sectionButton">
+                                    <Typography
+                                        className="sectionLabel"
+                                        sx={{ color: 'black' }}
+                                    >
+                                        Developers
+                                    </Typography>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem
+                                id={styles.menuItem}
+                                onClick={(e) => {
+                                    setCurrentPage('Settings');
+                                }}
+                                sx={{
+                                    '&:hover': {
+                                        '& .sectionLabel': { color: 'white' },
+                                    },
+                                }}
+                            >
+                                <ListItemButton className="sectionButton">
+                                    <Typography
+                                        className="sectionLabel"
+                                        sx={{ color: 'black' }}
+                                    >
+                                        Settings
+                                    </Typography>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem
+                                id={styles.menuItem}
+                                onClick={(e) => {
+                                    setCurrentPage('Investments & Research');
+                                }}
+                                sx={{
+                                    '&:hover': {
+                                        '& .sectionLabel': { color: 'white' },
+                                    },
+                                }}
+                            >
+                                <ListItemButton className="sectionButton">
+                                    <Typography
+                                        className="sectionLabel"
+                                        sx={{ color: 'black' }}
+                                    >
+                                        Investments & Research
+                                    </Typography>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem
+                                id={styles.menuItem}
+                                onClick={(e) => {
+                                    setCurrentPage('Informatives');
+                                }}
+                                sx={{
+                                    '&:hover': {
+                                        '& .sectionLabel': { color: 'white' },
+                                    },
+                                }}
+                            >
+                                <ListItemButton className="sectionButton">
+                                    <Typography
+                                        className="sectionLabel"
+                                        sx={{ color: 'black' }}
+                                    >
+                                        Informatives
+                                    </Typography>
+                                </ListItemButton>
+                            </ListItem>
+                        </List>
+                        <Divider
+                            orientation="vertical"
+                            variant="middle"
+                            flexItem
+                            sx={{
+                                marginLeft: '6%',
+                                marginRight: '6%',
+                                marginTop: '5vh',
+                                height: '90vh',
+                            }}
+                        />
+                    </div>
+                    <div
+                        style={{
+                            marginLeft: '3vw',
+                            marginRight: '5%',
+                        }}
+                    >
+                        <div
+                            className={styles.button}
+                            onClick={() => {
+                                auth.signout().then((_) => router.push('/'));
+                            }}
+                        >
+                            <Typography
+                                sx={{ color: pink[500] }}
+                            >
+                                Sign out
+                            </Typography>
+                            <div className={styles.btnTwo}>
+                                <ListItemIcon
+                                    sx={{ color: pink[500] }}
+                                >
+                                    <LogoutIcon />
+                                </ListItemIcon>
+                            </div>
+                        </div>
+                    </div>
+                </Drawer>
+            </ThemeProvider>
+            <Header />
+            {switchPage()}
         </div>
     );
 };
