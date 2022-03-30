@@ -102,7 +102,6 @@ const Login = (props) => {
                                 />
                                 <br />
                                 <Button
-                                    type="submit"
                                     variant="contained"
                                     className={styles.loginButton}
                                     sx={{ mt: 3, mb: 2 }}
