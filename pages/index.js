@@ -6,8 +6,8 @@ import { Box, TextField, Drawer, Button, CssBaseline, Link, Paper, Grid, Typogra
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as React from 'react';
 import styles from "./login.module.css";
-// import logo from "../public/utdfintechlogo1.png";
-// import loginBgnd from "../public/logingraphicblue1.png"
+//import logo from "../public/utdfintechlogo1.png";
+//import loginBgnd from "../public/logingraphicblue1.png"
 import Image from "next/image"
 import { GlassCard } from "../components/GlassCard";
 
@@ -35,12 +35,10 @@ const Login = (props) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Drawer
-                variant="permanent"
-                anchor="left"
-            >
+            <Drawer variant="permanent" anchor="left">
                 <Grid container component="main" sx={{ height: '100vh' }}>
-                    <Grid item
+                    <Grid
+                        item
                         xs={false}
                         sm={4}
                         md={7}
@@ -49,18 +47,21 @@ const Login = (props) => {
                             backgroundPosition: 'center',
                         }}
                     >
-                        <Grid item
+                        <Grid
+                            item
                             style={{
-                                width: "100vw",
-                                height: "13vh",
-                                display: "flex",
-                                flexDirection: "row",
+                                width: '100vw',
+                                height: '13vh',
+                                display: 'flex',
+                                flexDirection: 'row',
                             }}
                         >
-                            <Image className={styles.photo} alt="logo"
-                                   src="/utdfintechlogo1.png"
-                                   height={100}
-                                   width={100}
+                            <Image
+                                className={styles.photo}
+                                alt="logo"
+                                src="/utdfintechlogo1.png"
+                                height={100}
+                                width={100}
                             />
                             <label className={styles.logoText}>
                                 Comet
@@ -68,11 +69,27 @@ const Login = (props) => {
                                 Visor
                             </label>
                         </Grid>
-                        <img className={styles.welcomePhoto} alt="Bgnd" />
+                        <Image
+                            className={styles.welcomePhoto}
+                            src="/logingraphicblue1.png"
+                            alt="Bgnd"
+                            layout="fill"
+                        />
                     </Grid>
-                    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square >
-                        <Box className={styles.infoCard}> 
-                            <Typography variant="h5" className={styles.loginHeader}>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={8}
+                        md={5}
+                        component={Paper}
+                        elevation={6}
+                        square
+                    >
+                        <Box className={styles.infoCard}>
+                            <Typography
+                                variant="h5"
+                                className={styles.loginHeader}
+                            >
                                 Welcome Back,
                             </Typography>
                             <Typography className={styles.lowerLoginHeader}>
@@ -106,24 +123,26 @@ const Login = (props) => {
                                     className={styles.loginButton}
                                     sx={{ mt: 3, mb: 2 }}
                                     onClick={() => {
-                                        var provider = new firebase.auth.GoogleAuthProvider();
-                                        firebase.auth()
+                                        var provider =
+                                            new firebase.auth.GoogleAuthProvider();
+                                        firebase
+                                            .auth()
                                             .signInWithPopup(provider)
                                             .then((result) => {
                                                 console.log(result.user);
-                                                router.push("/dashboard")
-                                            }).catch((error) => {
-                                            console.error(error);
-                                        });}}
+                                                router.push('/dashboard');
+                                            })
+                                            .catch((error) => {
+                                                console.error(error);
+                                            });
+                                    }}
                                 >
                                     Log In
                                 </Button>
 
                                 <Grid item className={styles.noAcc}>
                                     <label> Don't have an account? </label>
-                                    <Link href="#">
-                                        {"Sign Up"}
-                                    </Link>
+                                    <Link href="#">{'Sign Up'}</Link>
                                 </Grid>
                                 <Grid item className={styles.noAcc}>
                                     <Grid item xs>
@@ -132,7 +151,6 @@ const Login = (props) => {
                                         </Link>
                                     </Grid>
                                 </Grid>
-
                             </Box>
                         </Box>
                     </Grid>
