@@ -1,6 +1,6 @@
 # Comet Visor
 
-Production: https://cometvisor.vercel.app/
+Production: https://comet-visor.vercel.app/
 
 ## Developer Setup
 
