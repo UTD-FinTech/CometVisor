@@ -29,7 +29,6 @@
     height: 100%;
     background: linear-gradient(152.97deg, rgba(112, 112, 112, 0.2) 0%, rgba(181, 181, 181, 0) 100%);
     backdrop-filter: blur(42px);
-    padding-left: 30%;
     /* Note: backdrop-filter has minimal browser support */
 }
 
@@ -62,7 +61,6 @@
 .loginButton {
     background: linear-gradient(277.48deg, #00827F -4.46%, #2596FF 125.88%);
     border-radius: 10px;
-    width : 20%;
 }
 
 .noAcc {

@@ -544,145 +544,59 @@ const Home = (props) => {
 
     return (
         <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'end',
-                marginTop: '5vh',
-                marginRight: '5vw',
-            }}
+            className="flex flex-col align-end mx-8"
+
         >
-            <Box
+            <div className="rounded-3xl border-2 border-gray-200 flex flex-col p-8"
                 id={styles.accountCard}
-                sx={{
-                    width: '70vw',
-                    height: '50vh',
-                    borderRadius: 10,
-                    border: 1,
-                    borderColor: '#e0f2f1',
-                    borderWidth: 3,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'start',
-                }}
             >
                 <ThemeProvider theme={theme}>
-                    <Typography
-                        variant="h6"
-                        sx={{
-                            marginTop: '2%',
-                            marginLeft: '2%',
-                            color: 'gray',
-                        }}
-                    >
+                    <div className="text-gray-600 font-light text-2xl">
                         Invest Value
-                    </Typography>
-                    <Typography
-                        variant="h3"
-                        sx={{ marginLeft: '2%', color: 'black' }}
-                    >
+                    </div>
+                    <div className="text-5xl font-light tracking-tight">
                         ${DailyData[DailyData.length - 1].price}
-                    </Typography>
-                    {positive === true ? (
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                width: '20vw',
-                                marginLeft: '2%',
-                                marginTop: 0,
-                            }}
-                        >
-                            <ArrowDropUpIcon style={{ color: teal[500] }} />
-                            <Typography
-                                variant="subtitle1"
-                                sx={{ color: teal[500] }}
-                            >
-                                {Math.abs(
-                                    data[0].y - data[data.length - 1].y
-                                ).toFixed(2)}{' '}
-                                (
-                                {(
-                                    ((data[data.length - 1].y - data[0].y) /
-                                        data[data.length - 1].y) *
-                                    100
-                                ).toFixed(2)}
-                                %)
-                            </Typography>
+                    </div>
+                    <div className="flex flex-row mt-2">
+                        {positive ?
+                            <ArrowDropUpIcon className="text-green-500" /> :
+                            <ArrowDropDownIcon className="text-red-500" />
+                        }
+                        <div className={positive ? "text-green-500" : "text-red-500"}>
+                            {Math.abs(
+                                data[0].y - data[data.length - 1].y
+                            ).toFixed(2)}{' '}
+                            (
+                            {(
+                                ((data[data.length - 1].y - data[0].y) /
+                                    data[data.length - 1].y) *
+                                100
+                            ).toFixed(2)}
+                            %)
                         </div>
-                    ) : (
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                width: '20vw',
-                                marginTop: 0,
-                                marginLeft: '2%',
-                            }}
-                        >
-                            <ArrowDropDownIcon style={{ color: pink[500] }} />
-                            <Typography
-                                variant="subtitle1"
-                                sx={{ color: pink[500] }}
-                            >
-                                {Math.abs(
-                                    data[data.length - 1].y - data[0].y
-                                ).toFixed(2)}{' '}
-                                (
-                                {(
-                                    ((data[data.length - 1].y - data[0].y) /
-                                        data[data.length - 1].y) *
-                                    100
-                                ).toFixed(2)}
-                                %)
-                            </Typography>
-                        </div>
-                    )}
+                    </div>
                     <h6>Portfolio balance goes here</h6>
-                    <div
-                        style={{
-                            width: '100%',
-                            display: 'flex',
-                            flexDirection: 'row-reverse',
-                        }}
-                    >
-                        <ButtonGroup
-                            variant="text"
-                            aria-label="text button group"
-                            color={positive ? 'positive' : 'negative'}
-                            sx={{ marginRight: '2%', marginBottom: '5%' }}
-                        >
-                            <Button sx={{ color: color }} onClick={changeDaily}>
+                    <div className="flex flex-row-reverse">
+                        <div className="grid grid-cols-5 divide-x divide-green-600 divide-x-2 text-green-600 text-center">
+                            <div onClick={changeDaily} className="mx-2">
                                 1D
-                            </Button>
-                            <Button
-                                sx={{ color: color }}
-                                onClick={changeWeekly}
-                            >
+                            </div>
+                            <div onClick={changeWeekly}>
                                 1W
-                            </Button>
-                            <Button
-                                sx={{ color: color }}
-                                onClick={changeMonthly}
-                            >
+                            </div>
+                            <div onClick={changeMonthly}>
                                 1M
-                            </Button>
-                            <Button
-                                sx={{ color: color }}
-                                onClick={changeThreeMonthly}
-                            >
+                            </div>
+                            <div onClick={changeThreeMonthly}>
                                 3M
-                            </Button>
-                            <Button
-                                sx={{ color: color }}
-                                onClick={changeAnnualy}
-                            >
+                            </div>
+                            <div onClick={changeAnnualy}>
                                 1Y
-                            </Button>
-                        </ButtonGroup>
+                            </div>
+                        </div>
                     </div>
                 </ThemeProvider>
-            </Box>
+            </div>
             <div
                 style={{
                     display: 'flex',
@@ -761,7 +675,7 @@ const Home = (props) => {
                                 <TableBody>
                                     {activityData.map((row) => (
                                         <ActivityRow
-                                            key={row.datetime}
+                                            key={row.datetime + row.amount}
                                             row={row}
                                         />
                                     ))}
@@ -780,6 +694,7 @@ const Home = (props) => {
                         borderColor: '#e0f2f1',
                         borderWidth: 3,
                     }}
+                    className="overflow-y-scroll overflow-x-hidden"
                 >
                     <div
                         style={{

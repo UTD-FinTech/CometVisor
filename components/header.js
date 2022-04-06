@@ -39,7 +39,7 @@ var date = today.getDate();
 var month = monthNames[today.getMonth()];
 var year = today.getFullYear();
 
-const ProfileBar = () => {
+const ProfileBar = ({username}) => {
     const [seconds, setSeconds] = useState(0);
 
     useEffect(() => {
@@ -50,82 +50,36 @@ const ProfileBar = () => {
     }, []);
 
     return (
-        <div
-            style={{
-                width: '100vw',
-                height: '13vh',
-                display: 'flex',
-                flexDirection: 'row-reverse',
-            }}
-        >
-            <Box
-                sx={{
-                    width: '30vw',
-                    height: '9vh',
-                    marginTop: '2vh',
-                    marginRight: '4vw',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                }}
-            >
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        width: '50%',
-                        alignItems: 'end',
-                        justifyItems: 'center',
-                    }}
-                >
-                    <Typography variant="caption" sx={{ marginBottom: -0.5 }}>
+        <div className="py-8 px-4 flex">
+            <div className="ml-auto mr-0 flex items-center">
+                <div className="flex flex-col items-end pr-8">
+                    <div className="text-sm">
                         {day}, {month} {date}, {year}
-                    </Typography>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'row-reverse',
-                            width: '100%',
-                        }}
-                    >
-                        <Typography variant="h6" sx={{ marginLeft: '0.5vw' }}>
-                            {indices[seconds].value}
-                        </Typography>
-                        <Typography variant="h6" sx={{ marginLeft: '2%' }}>
+                    </div>
+                    <div className="text-lg flex flex-col items-end">
+                        <div>
                             {indices[seconds].name}
-                        </Typography>
-                    </Box>
-                </Box>
-                <Divider
-                    orientation="vertical"
-                    variant="middle"
-                    flexItem
-                    sx={{ marginLeft: '6%', marginRight: '6%' }}
-                />
-                <Avatar sx={{ width: '3vw', height: '3vw', bgcolor: 'salmon' }}>
-                    SR
-                </Avatar>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginLeft: '3%',
-                        alignItems: 'start',
-                        height: '6vh',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <Typography
-                        variant="caption"
-                        style={{ marginBottom: -8, color: 'grey' }}
-                    >
-                        Welcome back
-                    </Typography>
-                    <Typography variant="h6">Sean</Typography>
-                </Box>
-            </Box>
+                        </div>
+                        <div>
+                            {indices[seconds].value}
+                        </div>
+                    </div>
+                </div>
+                <div className="border-l-2 border-gray-200 pl-8 pr-4 py-8 flex items-center gap-2">
+                    <Avatar className="w-12 h-12 bg-red-400">
+                        {username.split(" ").length >= 2 ?
+                            username.split(" ")[0].substr(0, 1) + username.split(" ")[1].substr(0, 1)
+                            : "XX"
+                        }
+                     </Avatar>
+                    <div>
+                        <div className="text-sm text-gray-500">Welcome back</div>
+                        <div className="font-medium">{username}</div>
+                    </div>
+                </div>
+            </div>
         </div>
-    );
+    )
 };
 
 export default ProfileBar;

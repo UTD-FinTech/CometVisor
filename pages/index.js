@@ -51,7 +51,6 @@ const Login = (props) => {
                             item
                             style={{
                                 width: '100vw',
-                                height: '13vh',
                                 display: 'flex',
                                 flexDirection: 'row',
                             }}
@@ -60,14 +59,9 @@ const Login = (props) => {
                                 className={styles.photo}
                                 alt="logo"
                                 src="/utdfintechlogo1.png"
-                                height={100}
-                                width={100}
+                                height={150}
+                                width={150}
                             />
-                            <label className={styles.logoText}>
-                                Comet
-                                <br />
-                                Visor
-                            </label>
                         </Grid>
                         <Image
                             className={styles.welcomePhoto}
@@ -85,16 +79,10 @@ const Login = (props) => {
                         elevation={6}
                         square
                     >
-                        <Box className={styles.infoCard}>
-                            <Typography
-                                variant="h5"
-                                className={styles.loginHeader}
-                            >
-                                Welcome Back,
-                            </Typography>
-                            <Typography className={styles.lowerLoginHeader}>
-                                Sign in
-                            </Typography>
+                        <Box className={styles.infoCard + " flex flex-col justify-center align-middle place-items-center"}>
+                            <div className="text-3xl font-light">
+                                Comet Visor
+                            </div>
                             <Box component="form" noValidate sx={{ mt: 1 }}>
                                 <TextField
                                     className={styles.textField}
@@ -139,18 +127,12 @@ const Login = (props) => {
                                 >
                                     Log In
                                 </Button>
-
-                                <Grid item className={styles.noAcc}>
-                                    <label> Don't have an account? </label>
+                                <div>
                                     <Link href="#">{'Sign Up'}</Link>
-                                </Grid>
-                                <Grid item className={styles.noAcc}>
-                                    <Grid item xs>
-                                        <Link href="#">
-                                            Forgot your password?
-                                        </Link>
-                                    </Grid>
-                                </Grid>
+                                </div>
+                                <div>
+                                    <Link href="#">Forgot your password?</Link>
+                                </div>
                             </Box>
                         </Box>
                     </Grid>
