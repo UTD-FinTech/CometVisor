@@ -7,6 +7,7 @@ import Home from "../components/home";
 import Accounts from "../components/accounts";
 import Informatives from "../components/informatives";
 import InvestmentResearch from "../components/investmentResearch";
+import BlackLittermanModel from "../components/blackLittermanModel";
 import Developers from "../components/developers";
 import Settings from "../components/settings";
 import Header from "../components/header";
@@ -87,6 +88,7 @@ const AuthenticatedPage = (props) => {
         switch(currentPage) {
             case 'Home': return <Home />;
             case 'Accounts': return <Accounts />;
+            case 'Black Litterman Model' : return <BlackLittermanModel />; 
             case 'Informatives': return <Informatives />;
             case 'Investments & Research': return <InvestmentResearch />;
             case 'Developers': return <Developers />;
@@ -115,6 +117,7 @@ const AuthenticatedPage = (props) => {
                 <div className="my-8 border-r-2 border-gray-300 h-full flex-1 flex justify-center flex-col">
                     <Tab name="Home" />
                     <Tab name="Accounts" />
+                    <Tab name ="Black Litterman Model" />
                     <Tab name="Informatives" />
                     <Tab name="Investment & Research" />
                     <Tab name="Developers" />
