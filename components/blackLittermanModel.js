@@ -109,7 +109,7 @@ const BlackLittermanModel = (props) => {
                 }}> 
                 <Typography
                     variant="h4"
-                    sx={{ marginLeft: '38%', marginRight: '30%', marginTop: '2%', display: 'flex' }}>
+                    sx={{ marginLeft: '30%', marginRight: '30%', marginTop: '2%', display: 'flex' }}>
                     Select Stocks
                 </Typography>
                 <Autocomplete
@@ -150,12 +150,12 @@ const BlackLittermanModel = (props) => {
                         display: 'flex',
                         flexDirection: 'row',
                         alignItems: 'start',
-                        marginRight: '30%',                            
-                        marginLeft: '30%',
+                        marginRight: '20%',                            
+                        marginLeft: '20%',
                         marginTop: '5%',
                     }}>  
-                    <Button variant="outlined" onClick={() => {absoluteClick()}}>Aboslute</Button>
-                    <Button variant="outlined" sx = {{marginLeft: '30%'}} onClick={() => {relativeClick()}}>Relative</Button>
+                    <Button fullWidth variant="outlined" onClick={() => {absoluteClick()}}>Aboslute</Button>
+                    <Button fullWidth variant="outlined" sx = {{marginLeft: '30%'}} onClick={() => {relativeClick()}}>Relative</Button>
                 </div> 
                 <div id = "absoluteChoices"
                     style = {{
@@ -245,9 +245,9 @@ const BlackLittermanModel = (props) => {
                         marginTop: '5%',
                         marginBottom: '5%'
                     }}>  
-                        <Button variant="contained" color="success" size="large" 
+                        <Button fullWidth variant="contained" color="success" size="large" 
                             endIcon={<SendIcon />} onClick={() => {enterClick()}}>Enter</Button>
-                        <Button variant="outlined" color="error" size ="large" startIcon={<DeleteIcon />}
+                        <Button fullWidth variant="outlined" color="error" size ="large" startIcon={<DeleteIcon />}
                              sx={{marginLeft: '25%'}} onClick={() => {resetClick()}}>Reset</Button>
                 </div> 
             </Box>  
