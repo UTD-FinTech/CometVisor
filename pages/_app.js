@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import {ProvideAuth} from '../lib/use-auth';
+import '../styles.css';
 
 function MyApp({Component, pageProps}) {
 
