@@ -9,6 +9,8 @@ import {
     TableRow,
     TableCell,
     TableBody,
+    Autocomplete,
+    TextField
 } from '@mui/material';
 //import { ResponsivePie } from '@nivo/pie';
 //import { ResponsiveBar } from '@nivo/bar';
@@ -242,8 +244,8 @@ const portfolioIndustries = [
 
 const portfolioAssets = [
     {
-        Name: 'Advanced Micro Devices',
         Ticker: 'AMD',
+        Name: 'Advanced Micro Devices',
         CurrentVal: 155.0,
         DailyMove: 3.68,
         PositionGrowth: 55,
@@ -534,8 +536,8 @@ const portfolioAssets = [
         ],
     },
     {
-        Name: 'NIO',
         Ticker: 'NIO',
+        Name: 'NIO',
         CurrentVal: 39.76,
         DailyMove: -1.43,
         PositionGrowth: 23,
@@ -826,8 +828,8 @@ const portfolioAssets = [
         ],
     },
     {
-        Name: 'Meta Platforms',
         Ticker: 'FB',
+        Name: 'Meta Platforms',
         CurrentVal: 333.4,
         DailyMove: 7.94,
         PositionGrowth: 487.88,
@@ -1119,6 +1121,10 @@ const portfolioAssets = [
     },
 ];
 
+const tickersToSearch = [
+    "AMD", "NIO", "FB"
+]
+
 const InvestmentResearch = (props) => {
     return (
         <div
@@ -1127,9 +1133,18 @@ const InvestmentResearch = (props) => {
                 flexDirection: 'column',
                 alignItems: 'end',
                 marginTop: '5vh',
-                marginRight: '5vw',
+                width: '70vw',
+                marginLeft: "3%"
             }}
         >
+            <Autocomplete
+                disablePortal
+                options={tickersToSearch}
+                sx={{ width: '60vw', marginRight: '5vw', marginBottom: '3vh' }}
+                renderInput={(params) => (
+                    <TextField {...params} label="Stock Tickers" />
+                )}
+            />
             <Box
                 id="accountCard"
                 sx={{
@@ -1142,6 +1157,8 @@ const InvestmentResearch = (props) => {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'start',
+                    background:
+                        'linear-gradient(-152.97deg, rgba(112, 112, 112, 0.2) 0%, rgba(181, 181, 181, 0) 100%);',
                 }}
             >
                 <div
@@ -1356,6 +1373,8 @@ const InvestmentResearch = (props) => {
                     flexDirection: 'column',
                     alignItems: 'start',
                     marginTop: '5%',
+                    background:
+                        'linear-gradient(-152.97deg, rgba(112, 112, 112, 0.2) 0%, rgba(181, 181, 181, 0) 100%);',
                 }}
             >
                 <div

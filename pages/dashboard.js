@@ -119,7 +119,7 @@ const AuthenticatedPage = (props) => {
                     <Tab name="Accounts" />
                     <Tab name ="Black Litterman Model" />
                     <Tab name="Informatives" />
-                    <Tab name="Investment & Research" />
+                    <Tab name="Investments & Research" />
                     <Tab name="Developers" />
                     <Tab name="Settings" />
                     <button onClick={() => {
