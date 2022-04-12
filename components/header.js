@@ -50,7 +50,7 @@ const ProfileBar = ({username}) => {
     }, []);
 
     return (
-        <div className="py-8 px-4 flex">
+        <div className="py-8 px-4 flex" style={{width: "100%"}}>
             <div className="ml-auto mr-0 flex items-center">
                 <div className="flex flex-col items-end pr-8">
                     <div className="text-sm">
@@ -58,28 +58,27 @@ const ProfileBar = ({username}) => {
                     </div>
                     <div className="text-lg flex flex-col items-end">
                         <div>
-                            {indices[seconds].name}
-                        </div>
-                        <div>
-                            {indices[seconds].value}
+                            {indices[seconds].name} &nbsp;&nbsp; {indices[seconds].value}
                         </div>
                     </div>
                 </div>
                 <div className="border-l-2 border-gray-200 pl-8 pr-4 py-8 flex items-center gap-2">
                     <Avatar className="w-12 h-12 bg-red-400">
-                        {username.split(" ").length >= 2 ?
-                            username.split(" ")[0].substr(0, 1) + username.split(" ")[1].substr(0, 1)
-                            : "XX"
-                        }
-                     </Avatar>
+                        {username.split(' ').length >= 2
+                            ? username.split(' ')[0].substr(0, 1) +
+                              username.split(' ')[1].substr(0, 1)
+                            : 'XX'}
+                    </Avatar>
                     <div>
-                        <div className="text-sm text-gray-500">Welcome back</div>
+                        <div className="text-sm text-gray-500">
+                            Welcome back
+                        </div>
                         <div className="font-medium">{username}</div>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 };
 
 export default ProfileBar;
