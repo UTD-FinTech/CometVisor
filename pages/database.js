@@ -4,17 +4,19 @@ import {highlight} from 'sql-highlight';
 const Database = (props) => {
 
     const [query, setQuery] = useState("");
-    const [result, setResult] = useState([]);
+    const [result, setResult] = useState({"data": [], "fields": []});
 
     const search = async () => {
         await fetch("/api/mysql?query=" + query).then(res => res.json()).then(data => {
             if ("error" in data) {
-                console.error(data);
+                console.log(data);
             } else {
                 let res = data["data"];
                 console.log(res);
                 setResult(res);
             }
+        }).catch(err => {
+            console.log(data);
         });
     }
 
@@ -40,11 +42,18 @@ const Database = (props) => {
                  className="text-center mt-4 text-2xl"
             />
             <table className="text-3xl font-light mt-12">
+                <thead>
+                    <tr>
+                        {result["fields"].map((field, idx) => (
+                            <td key={idx} className="border-2 border-blue-500 text-center p-4">{field}</td>
+                        ))}
+                    </tr>
+                </thead>
                 <tbody>
-                    {result.map((row, idx) => (
+                    {result["data"].map((row, idx) => (
                         <tr key={idx}>
                             {row.map((cell, idx2) => (
-                                <td key={idx2} className="px-4 py-2 border-2 border-blue-800">{cell}</td>
+                                <td key={idx2} className="px-4 py-2 border-2 border-blue-800 text-center">{cell}</td>
                             ))}
                         </tr>
                     ))}
