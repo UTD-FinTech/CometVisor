@@ -41,11 +41,11 @@ const Database = (props) => {
             <div dangerouslySetInnerHTML={{__html: highlight(query, {html: true})}}
                  className="text-center mt-4 text-2xl"
             />
-            <table className="text-3xl font-light mt-12">
+            <table className="font-light mt-12">
                 <thead>
                     <tr>
                         {result["fields"].map((field, idx) => (
-                            <td key={idx} className="border-2 border-blue-500 text-center p-4">{field}</td>
+                            <td key={idx} className="border-2 border-blue-500 text-center p-4 text-xl">{field}</td>
                         ))}
                     </tr>
                 </thead>
@@ -53,7 +53,7 @@ const Database = (props) => {
                     {result["data"].map((row, idx) => (
                         <tr key={idx}>
                             {row.map((cell, idx2) => (
-                                <td key={idx2} className="px-4 py-2 border-2 border-blue-800 text-center">{cell}</td>
+                                <td key={idx2} className="px-4 py-2 border-2 border-blue-800 text-center text-md">{cell}</td>
                             ))}
                         </tr>
                     ))}
