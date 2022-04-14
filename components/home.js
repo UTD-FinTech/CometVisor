@@ -473,13 +473,11 @@ const Home = (props) => {
 
     if (timeframe === '1D') {
         for (const dataPoint of DailyData) {
-            console.log(dataPoint);
             data.push({
                 x: dataPoint.time,
                 y: parseFloat(dataPoint.price),
             });
         }
-        console.log(data);
     } else {
         if (timeframe === '1W') {
             for (const dataPoint of large_portfolio_data.slice(
@@ -529,10 +527,8 @@ const Home = (props) => {
     for (const dataPoint of data) {
         findMax.push(Math.round(dataPoint.y));
     }
-    console.log(findMax);
     const valueMax = Math.max(...findMax);
     const graphMax = Math.ceil(valueMax * 1.01);
-    console.log(graphMax);
 
     let positive = true;
     let color = teal[500];
@@ -718,8 +714,8 @@ const Home = (props) => {
                             sx={{ width: '100%' }}
                         />
                         <Box>
-                            {newsItems.map((news) => (
-                                <HomeNewsRow news={news} />
+                            {newsItems.map((news, id) => (
+                                <HomeNewsRow key={id} news={news} />
                             ))}
                         </Box>
                         <div

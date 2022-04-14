@@ -80,10 +80,6 @@ const AuthenticatedPage = (props) => {
     const router = useRouter();
     const [currentPage, setCurrentPage] = useState("Home");
 
-    useEffect(async () => {
-        await fetch("/api/users").then(res => res.json()).then(data => {console.log(data)});
-    }, []);
-
     const switchPage = () => {
         switch(currentPage) {
             case 'Home': return <Home />;

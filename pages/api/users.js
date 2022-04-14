@@ -54,7 +54,16 @@ const patchUser = async (req, res) => {
         const doc = await user.get();
 
         if (!doc.exists) {
-            return res.status(404).send(`User ${ uid } does not exist`);
+            // create doc
+            db.collection("users").doc(uid).set({
+                tickers: tickers,
+                positions: []
+            }).then(() => {
+                console.log("Document successfully written!");
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
         }
 
         await user.update({

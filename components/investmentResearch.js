@@ -15,6 +15,8 @@ import {
 //import { ResponsivePie } from '@nivo/pie';
 //import { ResponsiveBar } from '@nivo/bar';
 import PositionRow from './webComponents/PositionRow';
+import { useAuth } from '../lib/use-auth';
+import { useEffect, useState } from 'react';
 
 /* 
 
@@ -1126,6 +1128,37 @@ const tickersToSearch = [
 ]
 
 const InvestmentResearch = (props) => {
+    const auth = useAuth();
+    const [allUsers, setAllUsers] = useState([]);
+
+    const fetchUser = async () => {
+        await fetch("/api/users").then(res => res.json()).then(data => {
+            console.log(data);
+            setAllUsers(data);
+        });
+    }
+
+    useEffect(async () => {
+        await fetchUser();
+    }, []);
+
+    const addTicker = async (e) => {
+        let rand = (Math.random() + 1).toString(36).substring(7).toUpperCase();
+        await fetch('/api/users', {
+            method: 'PATCH',
+            body: JSON.stringify({
+                uid: auth.user.uid,
+                tickers: ["AMC2", "GME2", rand]
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        }).then(res => res.text()).then(async res => {
+            await fetchUser();
+            console.log("Added random symbol " + rand + " to user " + auth.user.uid);
+        });
+    }
+
     return (
         <div
             style={{
@@ -1137,6 +1170,27 @@ const InvestmentResearch = (props) => {
                 marginLeft: "3%"
             }}
         >
+            <>
+                <div className="p-2 bg-red-300">current user uid: {auth.user.uid}</div>
+                <button className="bg-blue-300 px-4 py-2 shadow-lg cursor-pointer rounded-lg hover:bg-blue-400"
+                onClick={addTicker}>
+                    Add random ticker to current user's tickers
+                </button>
+                <div>Database:</div>
+                {allUsers.map((user, id) => (
+                    <div key={id} className="border-2 border-black">
+                        <div>
+                            <span>uid: {user.uid}</span>
+                            <div>Tickers:</div>
+                            <div>
+                                {user["data"]["tickers"]?.map((ticker, id2) => (
+                                    <div>{ticker}</div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </>
             <Autocomplete
                 disablePortal
                 options={tickersToSearch}
@@ -1439,8 +1493,8 @@ const InvestmentResearch = (props) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {portfolioAssets.map((row) => (
-                                    <PositionRow key={row.name} row={row} />
+                                {portfolioAssets.map((row, id) => (
+                                    <PositionRow key={id} row={row} />
                                 ))}
                             </TableBody>
                         </Table>

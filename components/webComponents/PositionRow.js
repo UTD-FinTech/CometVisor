@@ -100,13 +100,11 @@ const PositionRow = (props) => {
 
     if (timeframe === "1D") {
       for (const dataPoint of row.DailyData) {
-        console.log(dataPoint);
         data.push({
           x: dataPoint.time,
           y: parseFloat(dataPoint.price),
         });
       }
-      console.log(data);
     } else {
       if (timeframe === "1W") {
         for (const dataPoint of row.large_portfolio_data.slice(
@@ -156,10 +154,8 @@ const PositionRow = (props) => {
     for (const dataPoint of data) {
       findMax.push(Math.round(dataPoint.y));
     }
-    console.log(findMax);
     const valueMax = Math.max(...findMax);
     const graphMax = Math.ceil(valueMax * 1.01);
-    console.log(graphMax);
 
     let positive = true;
     let color = teal[500];
