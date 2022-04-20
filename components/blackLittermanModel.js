@@ -8,16 +8,16 @@ import Image from "next/image"
 
 
 const stockTickers = [
-    { ticker: 'AAPL' },
-    { ticker: 'TSLA' },
-    { ticker: 'GOOG' },
-    { ticker: 'TWTR' },
-    { ticker: 'NFLX' },
-    { ticker: 'FB' },
-    { ticker: 'MSFT' },
-    { ticker: 'F' },
-    { ticker: 'GE' },
-    { ticker: 'BABA' }
+    { ticker: 'AAPL', key:  166.96},
+    { ticker: 'TSLA', key: 983.06},
+    { ticker: 'GOOG', key: 2567.88},
+    { ticker: 'TWTR', key:  45.21},
+    { ticker: 'NFLX', key: 220.74},
+    { ticker: 'FB', key:  200.20},
+    { ticker: 'MSFT', key: 286.71},
+    { ticker: 'F', key: 16.04},
+    { ticker: 'GE', key:  91.52},
+    { ticker: 'BABA', key: 89.99}
 ];
 
 const marks = [
@@ -41,6 +41,7 @@ const BlackLittermanModel = (props) => {
     const [value, setValue] = React.useState([...fixedOptions, stockTickers[3]]);
     const [stock1, setStock] = React.useState('');
     const [showStock, setShowStock] = React.useState(false);
+    const [inputTickers, setInputTickers] = React.useState([]);
     var lessThan = '<';
     var greaterThan = '>';
 
@@ -119,6 +120,7 @@ const BlackLittermanModel = (props) => {
                         marginRight: '5%'
                     }}
                     multiple
+                    onChange={(e, value) => setInputTickers(value)}
                     id="stockSelect"
                     options={stockTickers}
                     limitTags={3}
@@ -169,12 +171,15 @@ const BlackLittermanModel = (props) => {
                     <FormControl fullWidth>
                         <InputLabel id="stock1">Stock</InputLabel>
                         <Select
+                            defaultValue={0}
                             label="stock1"
                             onChange={handleChange1}
                             >
-                            <MenuItem value={10}>AAPL</MenuItem>
-                            <MenuItem value={20}>GOOG</MenuItem>
-                            <MenuItem value={30}>TSLA</MenuItem>
+                                {
+                                    inputTickers.map((ticker) => (
+                                        <MenuItem key={ticker.key} value={ticker.key}>{ticker.ticker}</MenuItem>
+                                    ))
+                                }
                         </Select>
                     </FormControl>
                     <Slider
