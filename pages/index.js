@@ -43,10 +43,15 @@ const theme = createTheme();
 
 const Login = (props) => {
     const [isNewUser, setIsNewUser] = useState(false);
-
-    const registerNewUser = () => {
-        setIsNewUser((prevState) => !prevState)
-    }
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const handlePassword = e => {setPassword(e.target.value);}
+    const handleEmail = e => {setEmail(e.target.value);};
+    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+    const handleLoginPassword = e => {setLoginPassword(e.target.value);}
+    const handleLoginEmail = e => {setLoginEmail(e.target.value);};
+    const registerNewUser = () => {setIsNewUser((prevState) => !prevState)}
 
     const router = useRouter();
 
@@ -111,6 +116,7 @@ const Login = (props) => {
                             {isNewUser ? (
                                 <Box component="form" noValidate sx={{ mt: 1 }}>
                                     <TextField
+                                        value={email}
                                         className={styles.textField}
                                         margin="normal"
                                         required
@@ -119,9 +125,12 @@ const Login = (props) => {
                                         name="email"
                                         autoComplete="email"
                                         autoFocus
+                                        onChange={handleEmail}
+
                                     />
                                     <br />
                                     <TextField
+                                        value={password}
                                         className={styles.textField}
                                         margin="normal"
                                         required
@@ -130,6 +139,8 @@ const Login = (props) => {
                                         type="password"
                                         id="password"
                                         autoComplete="current-password"
+                                        onChange={handlePassword}
+
                                     />
                                     <br />
                                     <TextField
@@ -157,7 +168,25 @@ const Login = (props) => {
                                         className={styles.loginButton}
                                         sx={{ mt: 3, mb: 2 }}
                                         onClick={() => {
-                                            console.log("Account created");
+                                            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+                                            const login = email;
+                                            const pw = password;
+
+                                            firebase
+                                                .auth()
+                                                .createUserWithEmailAndPassword(login, pw)
+                                                .then(({ user }) => {
+                                                    return user.getIdToken().then((idToken) => {
+
+                                                    });
+                                                })
+                                                .then(() => {
+                                                    if(firebase.auth().currentUser){
+                                                    router.push('/dashboard');
+                                                    }
+                                                });
+                                            return false;
+
                                         }}
                                     >
                                         Create Account
@@ -186,6 +215,7 @@ const Login = (props) => {
                             ) : (
                                 <Box component="form" noValidate sx={{ mt: 1 }}>
                                     <TextField
+                                        value={loginEmail}
                                         className={styles.textField}
                                         margin="normal"
                                         required
@@ -194,9 +224,12 @@ const Login = (props) => {
                                         name="email"
                                         autoComplete="email"
                                         autoFocus
+                                        onChange={handleLoginEmail}
+
                                     />
                                     <br />
                                     <TextField
+                                        value={loginPassword}
                                         className={styles.textField}
                                         margin="normal"
                                         required
@@ -205,15 +238,42 @@ const Login = (props) => {
                                         type="password"
                                         id="password"
                                         autoComplete="current-password"
+                                        onChange={handleLoginPassword}
+
                                     />
                                     <br />
                                     <Button
                                         variant="contained"
                                         className={styles.loginButton}
-                                        sx={{ mt: 3, mb: 2 }}
+                                        sx={{ mt: 3, mb: 2, mr: 5}}
+                                        onClick={() => {
+                                            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+                                            const login = loginEmail;
+                                            const pw = loginPassword;
+                                            firebase
+                                                .auth()
+                                                .signInWithEmailAndPassword(login, pw)
+                                                .then(({ user }) => {
+                                                })
+                                                .then(() => {
+                                                    if(firebase.auth().currentUser){
+                                                    router.push('/dashboard');
+                                                    }
+                                                });
+                                            return false;
+                                        }}
+                                    >
+                                        Log In
+                                    </Button>
+                                    
+                                    <Button
+                                        variant="contained"
+                                        className={styles.googleLoginButton}
+                                        sx={{ mt: 3, mb: 2,}}
                                         onClick={() => {
                                             var provider =
                                                 new firebase.auth.GoogleAuthProvider();
+                                                firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
                                             firebase
                                                 .auth()
                                                 .signInWithPopup(provider)
@@ -226,7 +286,7 @@ const Login = (props) => {
                                                 });
                                         }}
                                     >
-                                        Log In
+                                        Log In With Google
                                     </Button>
                                     <div
                                         style={{
