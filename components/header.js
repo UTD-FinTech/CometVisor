@@ -54,7 +54,7 @@ const ProfileBar = ({username}) => {
             <div className="ml-auto mr-0 flex items-center">
                 <div className="flex flex-col items-end pr-8">
                     <div className="text-sm">
-                        {day}, {month} {date}, {year}
+                        {day} {month} {date}, {year}
                     </div>
                     <div className="text-lg flex flex-col items-end">
                         <div>
@@ -64,16 +64,16 @@ const ProfileBar = ({username}) => {
                 </div>
                 <div className="border-l-2 border-gray-200 pl-8 pr-4 py-8 flex items-center gap-2">
                     <Avatar className="w-12 h-12 bg-red-400">
-                        {username.split(' ').length >= 2
+                        {username!=null? username.split(' ').length >= 2
                             ? username.split(' ')[0].substr(0, 1) +
                               username.split(' ')[1].substr(0, 1)
-                            : 'XX'}
+                            : 'XX' : 'XX'}
                     </Avatar>
                     <div>
                         <div className="text-sm text-gray-500">
                             Welcome back
                         </div>
-                        <div className="font-medium">{username}</div>
+                        <div className="font-medium">{username==null? "User" : username}</div>
                     </div>
                 </div>
             </div>
