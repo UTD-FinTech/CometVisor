@@ -17,7 +17,8 @@ const postUser = async (req, res) => {
         const usersDB = db.collection('users');
         const user = usersDB.doc(uid);
         await user.set({
-            tickers: []
+            tickers: [],
+            positions: []
         });
         return res.status(201).send(`User ${ uid } successfully created`);
     }
@@ -47,7 +48,16 @@ const getUser = async (req, res) => {
 }
 
 const patchUser = async (req, res) => {
-    const { uid, tickers } = req.body;
+    const { uid, tickers, positions } = req.body;
+    let updateObject = {};
+
+    if (tickers) {
+        updateObject.tickers = tickers;
+    }
+
+    if (positions) {
+        updateObject.positions = positions;
+    }
 
     try {
         const user = db.collection('users').doc(uid);
@@ -55,10 +65,8 @@ const patchUser = async (req, res) => {
 
         if (!doc.exists) {
             // create doc
-            db.collection("users").doc(uid).set({
-                tickers: tickers,
-                positions: []
-            }).then(() => {
+            db.collection("users").doc(uid).set(updateObject)
+            .then(() => {
                 console.log("Document successfully written!");
             })
             .catch((error) => {
@@ -66,9 +74,7 @@ const patchUser = async (req, res) => {
             });
         }
 
-        await user.update({
-            tickers: tickers
-        });
+        await user.update(updateObject);
 
         return res.status(200).send(`Successfully updated watchlist for user ${ uid }`);
     }

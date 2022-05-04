@@ -1132,9 +1132,17 @@ const InvestmentResearch = (props) => {
     const [allUsers, setAllUsers] = useState([]);
 
     const fetchUser = async () => {
-        await fetch("/api/users").then(res => res.json()).then(data => {
+        await fetch(`/api/users`).then(res => res.json()).then(data => {
             console.log(data);
-            setAllUsers(data);
+            let person;
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].uid === auth.user.uid) {
+                    person = data[i];
+                    break;
+                }
+            }
+            //console.log(person, 'hello');
+            setAllUsers([person]);
         });
     }
 
@@ -1142,13 +1150,29 @@ const InvestmentResearch = (props) => {
         await fetchUser();
     }, []);
 
-    const addTicker = async (e) => {
+    const addTicker = async () => {
+        let currentTickers;
+        await fetch(`/api/users`).then(res => res.json()).then(data => {
+            console.log(data);
+            let person;
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].uid === auth.user.uid) {
+                    person = data[i];
+                    break;
+                }
+            }
+            currentTickers = person.data.tickers;
+        });
+
         let rand = (Math.random() + 1).toString(36).substring(7).toUpperCase();
+        currentTickers.push(rand);
+
         await fetch('/api/users', {
             method: 'PATCH',
             body: JSON.stringify({
                 uid: auth.user.uid,
-                tickers: ["AMC2", "GME2", rand]
+                //tickers: ["AMC2", "GME2", rand]
+                tickers: currentTickers
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -1157,6 +1181,58 @@ const InvestmentResearch = (props) => {
             await fetchUser();
             console.log("Added random symbol " + rand + " to user " + auth.user.uid);
         });
+    }
+
+    const updateTickers = async (updatedTickers) => {
+        await fetch('/api/users', {
+            method: 'PATCH',
+            body: JSON.stringify({
+                uid: auth.user.uid,
+                tickers: updatedTickers
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        }).then(res => res.text()).then(async res => {
+            await fetchUser();
+            console.log("Added random symbol " + rand + " to user " + auth.user.uid);
+        });
+    }
+
+    const removeTicker = async () => {
+        let currentTickers;
+        await fetch(`/api/users`).then(res => res.json()).then(data => {
+            console.log(data);
+            let person;
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].uid === auth.user.uid) {
+                    person = data[i];
+                    break;
+                }
+            }
+            currentTickers = person.data.tickers;
+        });
+
+        if (currentTickers.length !== 0) {
+            let randomIndex = Math.floor(Math.random() * currentTickers.length);
+            let deletedSymbol = currentTickers[randomIndex];
+            currentTickers.splice(randomIndex, 1);
+
+            await fetch('/api/users', {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    uid: auth.user.uid,
+                    //tickers: ["AMC2", "GME2", rand]
+                    tickers: currentTickers
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }).then(res => res.text()).then(async res => {
+                await fetchUser();
+                console.log("Deleted random symbol " + deletedSymbol + " to user " + auth.user.uid);
+            });
+        }
     }
 
     return (
@@ -1170,27 +1246,6 @@ const InvestmentResearch = (props) => {
                 marginLeft: "3%"
             }}
         >
-            <>
-                <div className="p-2 bg-red-300">current user uid: {auth.user.uid}</div>
-                <button className="bg-blue-300 px-4 py-2 shadow-lg cursor-pointer rounded-lg hover:bg-blue-400"
-                onClick={addTicker}>
-                    Add random ticker to current user's tickers
-                </button>
-                <div>Database:</div>
-                {allUsers.map((user, id) => (
-                    <div key={id} className="border-2 border-black">
-                        <div>
-                            <span>uid: {user.uid}</span>
-                            <div>Tickers:</div>
-                            <div>
-                                {user["data"]["tickers"]?.map((ticker, id2) => (
-                                    <div>{ticker}</div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </>
             <Autocomplete
                 disablePortal
                 options={tickersToSearch}
@@ -1252,6 +1307,7 @@ const InvestmentResearch = (props) => {
                             >
                                 <h6>Portfolio Composition goes here</h6>
                             </div>
+
                             <Box
                                 sx={{
                                     display: 'flex',
@@ -1448,7 +1504,41 @@ const InvestmentResearch = (props) => {
                     >
                         Your Positions
                     </Typography>
+
                     <Divider orientation="horizontal" sx={{ width: '100%' }} />
+
+                    <>
+                        <div className="p-2 bg-red-300">current user uid: {auth.user.uid}</div>
+                        <button className="bg-blue-300 px-4 py-2 shadow-lg cursor-pointer rounded-lg hover:bg-blue-400"
+                            onClick={addTicker}>
+                            Add random ticker to current user's tickers
+                        </button>
+                        <button className="bg-blue-300 px-4 py-2 shadow-lg cursor-pointer rounded-lg hover:bg-blue-400"
+                            onClick={removeTicker}>
+                            Delete random ticker to current user's tickers
+                        </button>
+                        <div>Database Tickers:</div>
+                        {allUsers.map((user, id) => (
+                            <div key={id} className="border-2 border-black">
+                                <div>
+                                    <span>uid: {user.uid}</span>
+                                    <div>Tickers:</div>
+                                    <div>
+                                        {user["data"]["tickers"]?.map((ticker, id2) => (
+                                            <div>{ticker}</div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </>
+                </div>
+            </Box>
+        </div>
+    );
+};
+
+/* 
                     <TableContainer>
                         <Table
                             style={{
@@ -1499,10 +1589,6 @@ const InvestmentResearch = (props) => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                </div>
-            </Box>
-        </div>
-    );
-};
+*/
 
 export default InvestmentResearch;
